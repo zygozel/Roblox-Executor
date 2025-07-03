@@ -20,13 +20,13 @@ jobs:
         dotnet-version: '8.0.x' # Ganti jika kamu pakai versi lain
 
     - name: Restore dependencies
-      run: dotnet restore RobloxExecutorCSharp/RobloxExecutorCSharp/RobloxExecutorCSharp.sln
+      run: dotnet restore RobloxExecutorCSharp/RobloxExecutorCSharp.sln
 
     - name: Build
-      run: dotnet build RobloxExecutorCSharp/RobloxExecutorCSharp/RobloxExecutorCSharp.sln --configuration Release --no-restore
+      run: dotnet build RobloxExecutorCSharp/RobloxExecutorCSharp.sln --configuration Release --no-restore
 
     - name: Publish
-      run: dotnet publish RobloxExecutorCSharp/RobloxExecutorCSharp/RobloxExecutorCSharp.csproj --configuration Release --output ./publish --no-build
+      run: dotnet publish RobloxExecutorCSharp/RobloxExecutorCSharp.csproj --configuration Release --output ./publish --no-build
 
     - name: List published files
       run: dir publish
