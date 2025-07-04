@@ -1,4 +1,4 @@
-name: Build .NET Desktop App
+name: Build .NET Framework Project
 
 on:
   push:
@@ -14,19 +14,11 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: '8.0.x' # Ganti jika kamu pakai versi lain
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
 
-    - name: Restore dependencies
-      run: dotnet restore RobloxExecutorCSharp/RobloxExecutorCSharp.sln
+    - name: Restore NuGet packages
+      run: nuget restore RobloxExecutorCSharp/RobloxExecutorCSharp/RobloxExecutorCSharp.sln
 
-    - name: Build
-      run: dotnet build RobloxExecutorCSharp/RobloxExecutorCSharp.sln --configuration Release --no-restore
-
-    - name: Publish
-      run: dotnet publish RobloxExecutorCSharp/RobloxExecutorCSharp.csproj --configuration Release --output ./publish --no-build
-
-    - name: List published files
-      run: dir publish
+    - name: Build with MSBuild
+      run: msbuild RobloxExecutorCSharp/RobloxExecutorCSharp/RobloxExecutorCSharp.sln /p:Configuration=Release
